@@ -20,9 +20,9 @@ public class Bitmap {
     }
 
 
-    //this code was taken from
+    // this code was taken from
     // https://www.dyclassroom.com/image-processing-project/how-to-convert-a-color-image-into-grayscale-image-in-java
-    public static void greyScaleTransform() {
+    public void greyScaleTransform() {
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
                 int p = image.getRGB(x,y);
@@ -43,7 +43,7 @@ public class Bitmap {
         }
     }
 
-    public static void makePink() {
+    public void pixelate() {
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
                 int p = image.getRGB(x,y);
@@ -64,7 +64,7 @@ public class Bitmap {
         }
     }
 
-    public static void blackout() {
+    public void blackout() {
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
                 image.setRGB(x, y, 0);
@@ -72,13 +72,23 @@ public class Bitmap {
         }
     }
 
-    public static void blur() {
+    public void blur() {
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
                 int random = (int)(Math.random() * 256);
                 image.setRGB(x, y, random);
             }
         }
+    }
+
+    public void resize() {
+
+        BufferedImage b = new BufferedImage(width * 2, height * 2, image.getType());
+
+        Graphics g = b.getGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+        setImage(b);
     }
 
     private static void setWidth(int newWidth) {
@@ -91,17 +101,5 @@ public class Bitmap {
 
     private static void setImage(BufferedImage newImage) {
         image = newImage;
-    }
-
-
-    public static BufferedImage doubleSize() {
-
-        BufferedImage b = new BufferedImage(width * 2, height * 2, image.getType());
-
-        Graphics g = b.getGraphics();
-        g.drawImage(image, 0, 0, null);
-        g.dispose();
-        setImage(b);
-        return b;
     }
 }

@@ -18,6 +18,9 @@ public class Bitmap {
         return image;
     }
 
+
+    //this code was taken from
+    // https://www.dyclassroom.com/image-processing-project/how-to-convert-a-color-image-into-grayscale-image-in-java
     public static void greyScaleTransform() {
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
@@ -56,6 +59,14 @@ public class Bitmap {
                 p = (a<<21) | (avg<<14) | (avg<<6) | avg;
 
                 image.setRGB(x, y, p);
+            }
+        }
+    }
+
+    public static void blackout() {
+        for(int y = 0; y < height; y++){
+            for(int x = 0; x < width; x++){
+                image.setRGB(x, y, 0);
             }
         }
     }

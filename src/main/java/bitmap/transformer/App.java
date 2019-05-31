@@ -3,12 +3,60 @@
  */
 package bitmap.transformer;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+    private static String[] classArgs;
+    private static BufferedImage img;
+    private static Bitmap readImage;
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        classArgs = args;
+        verifyArgs();
+    }
+
+    private static void verifyArgs() {
+
+        try {
+            if(classArgs.length != 3) {
+                throw new Exception("You must send in three arguments - input output transform.");
+            }
+            //TODO: validate file paths are elements 0 and 1, method that we create is el 2
+
+
+            readFile(classArgs[0]);
+
+            writeFile(classArgs[2]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void readFile(String filepath) {
+        // args command line input - change username and path
+        // ./gradlew run --args '/Users/jenshin/codefellows/401/bitmap-transformer/src/main/resources/Smiley.bmp output/change
+        // /Users/jenshin/codefellows/401/bitmap-transformer/src/main/resources/transform.bmp'
+        //read image
+        try{
+            File file = new File(filepath);
+            System.out.println(file.getPath());
+            img = ImageIO.read(file);
+            readImage = new Bitmap(img);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+    }
+
+    private static void writeFile(String filepath) {
+        try{
+            File file = new File(filepath);
+            ImageIO.write( readImage.getImage(), "bmp", file );
+        }catch(IOException e){
+            System.out.println(e);
+        }
     }
 }

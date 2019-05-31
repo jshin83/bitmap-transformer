@@ -28,8 +28,9 @@ public class App {
 
 
             readFile(classArgs[0]);
-
-            writeFile(classArgs[2]);
+//            readImage.pixelate();
+            readImage.doubleSize();
+            writeFile(classArgs[1]);
         } catch (Exception e) {
             e.printStackTrace();
         }

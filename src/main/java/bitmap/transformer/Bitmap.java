@@ -1,5 +1,6 @@
 package bitmap.transformer;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Bitmap {
@@ -7,10 +8,10 @@ public class Bitmap {
     private static int width;
     private static int height;
 
-    public Bitmap(BufferedImage image) {
-        this.image = image;
-        this.width = image.getWidth();
-        this.height = image.getHeight();
+    public Bitmap(BufferedImage img) {
+        image = img;
+        width = image.getWidth();
+        height = image.getHeight();
 
     }
 
@@ -42,7 +43,7 @@ public class Bitmap {
         }
     }
 
-    public static void pixelate() {
+    public static void makePink() {
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
                 int p = image.getRGB(x,y);
@@ -71,9 +72,36 @@ public class Bitmap {
         }
     }
 
-    public static void doubleSize() {
-        int height = image.getHeight();
-        height *= 2;
-        width *= 2;
+    public static void blur() {
+        for(int y = 0; y < height; y++){
+            for(int x = 0; x < width; x++){
+                int random = (int)(Math.random() * 256);
+                image.setRGB(x, y, random);
+            }
+        }
+    }
+
+    private static void setWidth(int newWidth) {
+        width = newWidth;
+    }
+
+    private static void setHeight(int newHeight) {
+        height = newHeight;
+    }
+
+    private static void setImage(BufferedImage newImage) {
+        image = newImage;
+    }
+
+
+    public static BufferedImage doubleSize() {
+
+        BufferedImage b = new BufferedImage(width * 2, height * 2, image.getType());
+
+        Graphics g = b.getGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+        setImage(b);
+        return b;
     }
 }

@@ -7,11 +7,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class App {
     private static String[] classArgs;
     private static BufferedImage img;
     private static Bitmap readImage;
+
 
     public static void main(String[] args) {
         classArgs = args;
@@ -24,13 +27,12 @@ public class App {
             if(classArgs.length != 3) {
                 throw new Exception("You must send in three arguments - input output transform.");
             }
-            //TODO: validate file paths are elements 0 and 1, method that we create is el 2
-
 
             readFile(classArgs[0]);
-//            readImage.pixelate();
-//            readImage.doubleSize();
-            readImage.blackout();
+            //methods we could use
+//            readImage.makePink();
+//            readImage.blackout();
+            readImage.blur();
             writeFile(classArgs[1]);
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,9 +41,6 @@ public class App {
     }
 
     private static void readFile(String filepath) {
-        // args command line input - change username and path
-        // ./gradlew run --args '/Users/jenshin/codefellows/401/bitmap-transformer/src/main/resources/Smiley.bmp output/change
-        // /Users/jenshin/codefellows/401/bitmap-transformer/src/main/resources/transform.bmp'
         //read image
         try{
             File file = new File(filepath);
